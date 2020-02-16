@@ -9,14 +9,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.marsapp.R;
 
 public class WeatherDetails extends Fragment {
     private static final String TAG = "Tab2Fragment";
 
     private Button btnTEST;
+
+    private ImageView backgroundImage;
+    private TextView title;
+    private TextView releaseDate;
+    private TextView rating;
+    private TextView overview;
+    private Button buttonBack;
+    private String baseImageURL = "https://image.tmdb.org/t/p/w500";
 
     @Nullable
     @Override
@@ -33,4 +46,13 @@ public class WeatherDetails extends Fragment {
 
         return view;
     }
+
+/*    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.movie_cell);
+
+
+    }*/
+
 }

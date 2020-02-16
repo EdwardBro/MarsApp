@@ -83,21 +83,6 @@ public class WeatherDay {
         this.season = season;
     }
 
-//
-//    @SerializedName("backdrop_path")
-//    private String backdropImage;
-//
-//    @SerializedName("adult")
-//    private Boolean adult;
-//
-
-/*    public CurrentSol(int sol_key, int sol_key1 ) {
-        if (sol_key++ != sol_key1) {
-            this.sol_key = sol_key1;
-        }
-        return sol_key;
-    }*/
-
 /*    public WeatherDay(double temperature, String firstUTC, double windSpeed, String lastUTC, double pressure, String season, String wind) {
         this.temperature = temperature;
         this.firstUTC = firstUTC;

@@ -9,8 +9,12 @@ public class WeatherRepository {
 
     private WeatherApiService weatherApiService = WeatherApi.create();
 
-    public Call<WeatherDataList> getCurrentSol() {
+    public Call<WeatherDataList> getWeatherData() {
         return weatherApiService.getWeatherData();
+    }
+
+    public Call<WeatherDataList> getMarsDay(String sk) {
+        return weatherApiService.getSolKey(sk);
     }
 
 }

@@ -21,19 +21,19 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
-            android:label="Home page"></activity>
+            android:label="Home page"/>
         <activity
             android:name=".ui.EditActivity"
             android:label="Edit note"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.NoteActivity"
             android:label="Notes"
-            android:allowBackup="false"></activity>
+            android:allowBackup="false"/>
         <activity
             android:name=".ui.WeatherActivity"
             android:label="Weather"
-            android:allowBackup="false"></activity>
+            android:allowBackup="false"/>
 
     </application>
 

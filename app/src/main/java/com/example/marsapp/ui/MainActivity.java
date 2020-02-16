@@ -1,25 +1,20 @@
 package com.example.marsapp.ui;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.marsapp.BottomNavigationViewHelper;
 import com.example.marsapp.R;
-import com.example.marsapp.SectionsPageAdapter;
-import com.example.marsapp.ui.fragments.SecretFragment;
-import com.example.marsapp.ui.fragments.WeatherDetails;
-import com.example.marsapp.ui.fragments.WeatherOverviewFragment;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -29,18 +24,18 @@ import java.util.Calendar;
  */
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
 
-    private SectionsPageAdapter mSectionsPageAdapter;
+    /*    private SectionsPageAdapter mSectionsPageAdapter;
 
-    private ViewPager mViewPager;
+        private ViewPager mViewPager;*/
 
+    TextView tvMarsDay;
+    WeatherActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
 
         Calendar calendar = Calendar.getInstance();
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
@@ -48,23 +43,33 @@ public class MainActivity extends AppCompatActivity {
         TextView textViewDate = findViewById(R.id.text_view_date);
         textViewDate.setText(currentDate);
 
+        tvMarsDay = findViewById(R.id.text_view_date2);
 
-        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+        viewModel = ViewModelProviders.of(this).get(WeatherActivityViewModel.class);
+
+        viewModel.getError().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                Toast.makeText(MainActivity.this, s, Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
+
+        viewModel.getSolKey().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                tvMarsDay.setText(viewModel.getSolKey().toString());
+            }
+        });
+
+        //      mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+
 
         // Set up the ViewPager with the sections adapter.
 //        mViewPager = (ViewPager) findViewById(R.id.container);
 //        setupViewPager(mViewPager);
 
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(mViewPager);
-
-
-//        tabLayout.getTabAt(0).setIcon(R.drawable.navigation);
-//        tabLayout.getTabAt(1).setIcon(R.drawable.ic_autorenew);
-//        tabLayout.getTabAt(2).setIcon(R.drawable.ic_attach_file);
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
-//        mBottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
@@ -75,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
-
                         break;
 
                     case R.id.navigation_notes:
@@ -87,12 +91,9 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent3 = new Intent(MainActivity.this, WeatherActivity.class);
                         startActivity(intent3);
                         break;
-
                 }
                 return false;
             }
         });
-
     }
-
 }

@@ -2,16 +2,21 @@ package com.example.marsapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.marsapp.BottomNavigationViewHelper;
 import com.example.marsapp.Note;
 import com.example.marsapp.R;
 
@@ -75,7 +80,36 @@ public class EditActivity extends AppCompatActivity {
                     setResult(RESULT_OK, resultIntent);
                     finish();
                 }
+            }
+        });
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        Intent intent1 = new Intent(EditActivity.this, MainActivity.class);
+                        startActivity(intent1);
+                        break;
+
+                    case R.id.navigation_notes:
+                        Intent intent2 = new Intent(EditActivity.this, NoteActivity.class);
+                        startActivity(intent2);
+                        break;
+
+                    case R.id.navigation_weather:
+                        Intent intent3 = new Intent(EditActivity.this, WeatherActivity.class);
+                        startActivity(intent3);
+                        break;
+
+                }
+                return false;
             }
         });
     }

@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.marsapp.BottomNavigationViewHelper;
 import com.example.marsapp.Note;
@@ -73,7 +74,7 @@ public class NoteActivity extends AppCompatActivity implements RecyclerView.OnIt
 
         updateUI();
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(1);
@@ -109,13 +110,12 @@ public class NoteActivity extends AppCompatActivity implements RecyclerView.OnIt
         });
     }
 
-
 //        private void initToolbar() {
 //            Toolbar toolbar = findViewById(R.id.toolbar);
 //            setSupportActionBar(toolbar);
 //        }
 
-    private void initFloatingButton() {
+    private void initFloatingButton(){
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,11 +172,43 @@ public class NoteActivity extends AppCompatActivity implements RecyclerView.OnIt
         }
     }
 
+ /*   private void updateUI(List<Note> notes) {
+        noteList.clear();
+        noteList.addAll(notes);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void getAllNotes() {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                final List<Note> notes = db.noteDao().getAllNotes();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateUI(notes);
+                    }
+                });
+            }
+        });
+    }
+
+    private void deleteNote(final Note note) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                db.noteDao().deleteNote(note);
+                getAllNotes();
+            }
+        });
+    }*/
+
     private void deleteAllNotes(final List<Note> notes) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 noteViewModel.deleteAll(notes);
+  //              db.noteDao().deleteNote((Note) noteList);
             }
         });
     }

@@ -20,6 +20,8 @@ public class WeatherActivityViewModel extends AndroidViewModel {
     private WeatherRepository weatherRepository = new WeatherRepository();
 
     private MutableLiveData<List<WeatherDay>> weather = new MutableLiveData<>();
+
+    private MutableLiveData<String> sol = new MutableLiveData<>();
     private MutableLiveData<String> error = new MutableLiveData<>();
 
     public WeatherActivityViewModel(@NonNull Application application) {
@@ -34,9 +36,13 @@ public class WeatherActivityViewModel extends AndroidViewModel {
         return weather;
     }
 
-    public void getWeatherDay() {
+    public MutableLiveData<String> getSolKey() {
+        return sol;
+    }
+
+    public void getMarsDay(String key) {
         weatherRepository
-                .getCurrentSol()
+                .getMarsDay(key)
                 .enqueue(new Callback<WeatherDataList>() {
                     @Override
                     public void onResponse(@NonNull Call<WeatherDataList> call, @NonNull Response<WeatherDataList> response) {

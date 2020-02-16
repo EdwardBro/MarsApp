@@ -38,7 +38,7 @@ public class WeatherOverviewFragment extends Fragment {
                 btnTEST.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                                viewModel.getWeather();
+/*                                viewModel.getWeather();*/
                                 Toast.makeText(getActivity(), "TESTING BUTTON CLICK 1",Toast.LENGTH_SHORT).show();
                         }
                 });
